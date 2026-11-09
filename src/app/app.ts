@@ -19,6 +19,10 @@ export class AppComponent implements OnInit {
   protected profile: UserProfile | null = null;
 
   async ngOnInit(): Promise<void> {
+    if (!supabase) {
+      return;
+    }
+
     supabase.auth.onAuthStateChange((event, session) => {
       (async () => {
         if (event === 'SIGNED_OUT' || !session) {
@@ -40,6 +44,10 @@ export class AppComponent implements OnInit {
   }
 
   private async loadProfile(userId: string, email: string): Promise<void> {
+    if (!supabase) {
+      return;
+    }
+
     const { data, error } = await supabase
       .from('profiles')
       .select('full_name')
@@ -63,6 +71,10 @@ export class AppComponent implements OnInit {
   }
 
   protected async onLogout(): Promise<void> {
+    if (!supabase) {
+      return;
+    }
+
     await supabase.auth.signOut();
   }
 }

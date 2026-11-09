@@ -31,6 +31,11 @@ export class LoginComponent {
       return;
     }
 
+    if (!supabase) {
+      this.errorMessage = 'Az adatbázis-kapcsolat jelenleg nem érhető el.';
+      return;
+    }
+
     this.loading = true;
     const { email, password } = this.loginForm.getRawValue();
 

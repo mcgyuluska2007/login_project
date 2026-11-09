@@ -34,6 +34,11 @@ export class RegisterComponent {
       return;
     }
 
+    if (!supabase) {
+      this.errorMessage = 'Az adatbázis-kapcsolat jelenleg nem érhető el.';
+      return;
+    }
+
     this.loading = true;
     const { fullName, email, password } = this.registerForm.getRawValue();
 

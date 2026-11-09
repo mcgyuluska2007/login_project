@@ -1,6 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+interface RuntimeEnv {
+  VITE_SUPABASE_URL?: string;
+  VITE_SUPABASE_ANON_KEY?: string;
+}
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const runtimeEnv = (import.meta as ImportMeta & { env?: RuntimeEnv }).env;
+const supabaseUrl = runtimeEnv?.VITE_SUPABASE_URL;
+const supabaseAnonKey = runtimeEnv?.VITE_SUPABASE_ANON_KEY;
+
+export const supabase: SupabaseClient | null = supabaseUrl && supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
