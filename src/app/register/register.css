@@ -1,0 +1,43 @@
+.auth-page {
+  background: linear-gradient(135deg, #7FFFD4 0%, #AAFF00 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  border: none;
+  border-radius: 12px;
+}
+
+.auth-card header h2 {
+  color: #333;
+}
+
+.btn-primary {
+  background-color: #00A36C;
+  border-color: #00A36C;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #008B5A;
+  border-color: #008B5A;
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.toggle-link {
+  color: #00A36C;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.toggle-link:hover {
+  text-decoration: underline;
+}

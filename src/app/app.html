@@ -1,0 +1,15 @@
+<app-dashboard
+  *ngIf="view === 'dashboard' && profile"
+  [profile]="profile"
+  (logout)="onLogout()"
+></app-dashboard>
+
+<app-login
+  *ngIf="view === 'login'"
+  (switchToRegister)="showRegister()"
+></app-login>
+
+<app-register
+  *ngIf="view === 'register'"
+  (switchToLogin)="showLogin()"
+></app-register>

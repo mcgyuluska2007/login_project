@@ -1,0 +1,90 @@
+<main class="auth-page d-flex align-items-center justify-content-center min-vh-100">
+  <section class="auth-card card shadow-sm">
+    <div class="card-body p-4">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+        <header class="text-center mb-4">
+          <h2 class="fw-bold mb-0">Regisztráció</h2>
+          <p class="text-muted small mt-1">Hozz létre egy új fiókot</p>
+        </header>
+
+        <div class="alert alert-success" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Teljes név</label>
+          <input
+            type="text"
+            id="fullName"
+            class="form-control"
+            formControlName="fullName"
+            placeholder="Kovács János"
+            [class.is-invalid]="isInvalid('fullName')"
+          >
+          <div class="invalid-feedback" *ngIf="isInvalid('fullName')">
+            <span *ngIf="fullName.errors?.['required']">A név megadása kötelező.</span>
+            <span *ngIf="fullName.errors?.['minlength']">Legalább 2 karakter hosszú legyen.</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="te@example.com"
+            [class.is-invalid]="isInvalid('email')"
+          >
+          <div class="invalid-feedback" *ngIf="isInvalid('email')">
+            <span *ngIf="email.errors?.['required']">Az email megadása kötelező.</span>
+            <span *ngIf="email.errors?.['email']">Adj meg egy érvényes email címet.</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Jelszó</label>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Jelszó"
+            [class.is-invalid]="isInvalid('password')"
+          >
+          <div class="invalid-feedback" *ngIf="isInvalid('password')">
+            <span *ngIf="password.errors?.['required']">A jelszó megadása kötelező.</span>
+            <span *ngIf="password.errors?.['minlength']">A jelszó legalább 6 karakter hosszú legyen.</span>
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="showPasswordReg"
+            class="form-check-input"
+            [checked]="showPassword"
+            (change)="showPassword = !showPassword"
+          >
+          <label for="showPasswordReg" class="form-check-label small">Jelszó mutatása</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-1" [disabled]="loading">
+          {{ loading ? 'Regisztráció...' : 'Regisztrálok' }}
+        </button>
+      </form>
+
+      <hr class="my-4">
+
+      <p class="text-center text-muted small mb-0">
+        Már van fiókod?
+        <a href="#" class="toggle-link" (click)="goToLogin($event)">Jelentkezz be itt</a>
+      </p>
+    </div>
+  </section>
+</main>

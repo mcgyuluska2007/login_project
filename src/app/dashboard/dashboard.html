@@ -1,0 +1,29 @@
+<main class="dashboard-page d-flex align-items-center justify-content-center min-vh-100">
+  <section class="dashboard-card card shadow-sm">
+    <div class="card-body p-4 text-center">
+      <div class="success-icon mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="#00A36C" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+
+      <h2 class="fw-bold mb-1">Sikeres bejelentkezés</h2>
+      <p class="text-muted small mb-4">Üdvözöllek újra a fiókodban</p>
+
+      <div class="info-box mb-4">
+        <div class="info-row">
+          <span class="info-label">Név:</span>
+          <span class="info-value">{{ profile().fullName || '—' }}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-value">{{ profile().email }}</span>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-logout w-100" (click)="onLogout()">
+        Kijelentkezés
+      </button>
+    </div>
+  </section>
+</main>

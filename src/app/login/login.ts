@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { supabase } from '../supabase-client';
 
 @Component({
   selector: 'app-login',
@@ -10,33 +11,56 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.css'],
 })
 export class LoginComponent {
+  switchToRegister = output<void>();
   private fb = inject(FormBuilder);
   protected submitted = false;
-  protected showModal = false;
+  protected loading = false;
+  protected errorMessage = '';
   protected showPassword = false;
-
-  private readonly validEmail = 'probamail@gmail.com';
-  private readonly validPassword = 'admin123';
 
   protected loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  protected onSubmit(): void {
+  protected async onSubmit(): Promise<void> {
     this.submitted = true;
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.getRawValue();
-      if (email === this.validEmail && password === this.validPassword) {
-        this.showModal = true;
-      } else {
-        alert('Hibás email vagy jelszó!');
+    this.errorMessage = '';
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    const { email, password } = this.loginForm.getRawValue();
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        this.errorMessage = this.translateError(error.message);
+        return;
       }
+    } catch {
+      this.errorMessage = 'Váratlan hiba történt. Próbáld újra.';
+    } finally {
+      this.loading = false;
     }
   }
 
-  protected closeModal(): void {
-    this.showModal = false;
+  protected goToRegister(event: Event): void {
+    event.preventDefault();
+    this.switchToRegister.emit();
+  }
+
+  private translateError(message: string): string {
+    if (message.includes('Invalid login') || message.includes('invalid credentials')) {
+      return 'Hibás email vagy jelszó.';
+    }
+    if (message.includes('Email not confirmed')) {
+      return 'Az email cím még nincs megerősítve.';
+    }
+    return message;
   }
 
   protected get email() {
