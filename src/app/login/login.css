@@ -1,0 +1,27 @@
+.login-page {
+  background: linear-gradient(135deg, #7FFFD4 0%,#AAFF00 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  border: none;
+  border-radius: 12px;
+}
+
+.login-card header h2 {
+  color: #333;
+}
+
+.btn-primary {
+  background-color:#00A36C;
+  border-color: #667eea;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #D2042D;
+  border-color: #5568d3;
+}
