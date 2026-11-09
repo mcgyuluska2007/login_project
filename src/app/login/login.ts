@@ -12,6 +12,11 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent {
   private fb = inject(FormBuilder);
   protected submitted = false;
+  protected showModal = false;
+  protected showPassword = false;
+
+  private readonly validEmail = 'probamail@gmail.com';
+  private readonly validPassword = 'admin123';
 
   protected loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -21,8 +26,17 @@ export class LoginComponent {
   protected onSubmit(): void {
     this.submitted = true;
     if (this.loginForm.valid) {
-      console.log('Login submitted:', this.loginForm.getRawValue());
+      const { email, password } = this.loginForm.getRawValue();
+      if (email === this.validEmail && password === this.validPassword) {
+        this.showModal = true;
+      } else {
+        alert('Hibás email vagy jelszó!');
+      }
     }
+  }
+
+  protected closeModal(): void {
+    this.showModal = false;
   }
 
   protected get email() {

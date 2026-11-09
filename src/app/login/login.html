@@ -26,7 +26,7 @@
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <input
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             id="password"
             class="form-control"
             formControlName="password"
@@ -44,3 +44,28 @@
     </div>
   </section>
 </main>
+
+<!-- Modal dialog showing email and password -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-dialog-custom" (click)="$event.stopPropagation()">
+    <div class="modal-card">
+      <div class="modal-header-custom">
+        <h3 class="mb-0">Sikeres bejelentkezés</h3>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body-custom">
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-value">probamail@gmail.com</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Jelszó:</span>
+          <span class="info-value">admin123</span>
+        </div>
+      </div>
+      <div class="modal-footer-custom">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Bezárás</button>
+      </div>
+    </div>
+  </div>
+</div>
