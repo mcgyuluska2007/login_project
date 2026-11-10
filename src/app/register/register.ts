@@ -54,20 +54,14 @@ export class RegisterComponent {
         return;
       }
 
-      if (data.user) {
-        const { error: profileError } = await supabase.from('profiles').insert({
-          id: data.user.id,
-          email,
-          full_name: fullName,
-        });
-
-        if (profileError) {
-          this.errorMessage = 'A fiók létrejött, de a profil mentése sikertelen.';
-          return;
-        }
+      if (!data.user) {
+        this.errorMessage = 'A regisztráció nem hozott létre felhasználót. Próbáld újra.';
+        return;
       }
 
-      this.successMessage = 'Sikeres regisztráció! Most már bejelentkezhetsz.';
+      this.successMessage = data.session
+        ? 'Sikeres regisztráció! Most már használhatod a fiókodat.'
+        : 'Sikeres regisztráció! Ellenőrizd az email címedet a belépéshez.';
       this.registerForm.reset();
       this.submitted = false;
     } catch {
