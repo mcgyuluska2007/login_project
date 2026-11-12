@@ -1,11 +1,15 @@
-<main class="login-page d-flex align-items-center justify-content-center min-vh-100">
-  <section class="login-card card shadow-sm">
+<main class="auth-page d-flex align-items-center justify-content-center min-vh-100">
+  <section class="auth-card card shadow-sm">
     <div class="card-body p-4">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <header class="text-center mb-4">
-          <h2 class="fw-bold mb-0">Member Login</h2>
-          <p class="text-muted small mt-1">Sign in to your account</p>
+          <h2 class="fw-bold mb-0">Bejelentkezés</h2>
+          <p class="text-muted small mt-1">Jelentkezz be a fiókodba</p>
         </header>
+
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -14,58 +18,53 @@
             id="email"
             class="form-control"
             formControlName="email"
-            placeholder="you@example.com"
+            placeholder="te@example.com"
             [class.is-invalid]="isInvalid('email')"
           >
           <div class="invalid-feedback" *ngIf="isInvalid('email')">
-            <span *ngIf="email.errors?.['required']">Email is required.</span>
-            <span *ngIf="email.errors?.['email']">Enter a valid email address.</span>
+            <span *ngIf="email.errors?.['required']">Az email megadása kötelező.</span>
+            <span *ngIf="email.errors?.['email']">Adj meg egy érvényes email címet.</span>
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
+          <label for="password" class="form-label">Jelszó</label>
           <input
             [type]="showPassword ? 'text' : 'password'"
             id="password"
             class="form-control"
             formControlName="password"
-            placeholder="Password"
+            placeholder="Jelszó"
             [class.is-invalid]="isInvalid('password')"
           >
           <div class="invalid-feedback" *ngIf="isInvalid('password')">
-            <span *ngIf="password.errors?.['required']">Password is required.</span>
-            <span *ngIf="password.errors?.['minlength']">Password must be at least 6 characters.</span>
+            <span *ngIf="password.errors?.['required']">A jelszó megadása kötelező.</span>
+            <span *ngIf="password.errors?.['minlength']">A jelszó legalább 6 karakter hosszú legyen.</span>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 mt-2">Submit</button>
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            id="showPasswordLogin"
+            class="form-check-input"
+            [checked]="showPassword"
+            (change)="showPassword = !showPassword"
+          >
+          <label for="showPasswordLogin" class="form-check-label small">Jelszó mutatása</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 mt-1" [disabled]="loading">
+          {{ loading ? 'Bejelentkezés...' : 'Bejelentkezek' }}
+        </button>
       </form>
+
+      <hr class="my-4">
+
+      <p class="text-center text-muted small mb-0">
+        Még nincs fiókod?
+        <a href="#" class="toggle-link" (click)="goToRegister($event)">Regisztrálj itt</a>
+      </p>
     </div>
   </section>
 </main>
-
-<!-- Modal dialog showing email and password -->
-<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
-  <div class="modal-dialog-custom" (click)="$event.stopPropagation()">
-    <div class="modal-card">
-      <div class="modal-header-custom">
-        <h3 class="mb-0">Sikeres bejelentkezés</h3>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
-      </div>
-      <div class="modal-body-custom">
-        <div class="info-row">
-          <span class="info-label">Email:</span>
-          <span class="info-value">probamail@gmail.com</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Jelszó:</span>
-          <span class="info-value">admin123</span>
-        </div>
-      </div>
-      <div class="modal-footer-custom">
-        <button type="button" class="btn btn-secondary" (click)="closeModal()">Bezárás</button>
-      </div>
-    </div>
-  </div>
-</div>

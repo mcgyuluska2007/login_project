@@ -1,124 +1,46 @@
-.login-page {
+.login-page,
+.auth-page {
   background: linear-gradient(135deg, #7FFFD4 0%, #AAFF00 100%);
 }
 
+.auth-card,
 .login-card {
   width: 100%;
-  max-width: 380px;
+  max-width: 420px;
   border: none;
   border-radius: 12px;
 }
 
+.auth-card header h2,
 .login-card header h2 {
   color: #333;
 }
 
 .btn-primary {
   background-color: #00A36C;
-  border-color: #667eea;
+  border-color: #00A36C;
   font-weight: 600;
   padding: 0.6rem 1rem;
+  transition: background-color 0.2s ease;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #D2042D;
-  border-color: #5568d3;
+  background-color: #008B5A;
+  border-color: #008B5A;
 }
 
-/* Modal overlay */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1050;
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
-.modal-dialog-custom {
-  width: 100%;
-  max-width: 420px;
-  padding: 1rem;
-}
-
-.modal-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  animation: modalIn 0.25s ease-out;
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.modal-header-custom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #eee;
-}
-
-.modal-header-custom h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #333;
-}
-
-.modal-body-custom {
-  padding: 1.5rem;
-}
-
-.info-row {
-  display: flex;
-  gap: 0.75rem;
-  padding: 0.6rem 0;
-  font-size: 1rem;
-}
-
-.info-row + .info-row {
-  border-top: 1px solid #f0f0f0;
-}
-
-.info-label {
+.toggle-link {
+  color: #00A36C;
   font-weight: 600;
-  color: #555;
-  min-width: 70px;
+  text-decoration: none;
 }
 
-.info-value {
-  color: #222;
-  word-break: break-all;
-}
-
-.modal-footer-custom {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid #eee;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  border-color: #6c757d;
-  color: #fff;
-  font-weight: 600;
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
-  border-color: #5a6268;
+.toggle-link:hover {
+  text-decoration: underline;
 }
